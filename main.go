@@ -63,7 +63,8 @@ func run(ctx context.Context, c *cli.Command) error {
 	if err != nil {
 		return fmt.Errorf("read input: %w", err)
 	}
-	input := strings.TrimSpace(string(inputData))
+
+	input := strings.TrimSuffix(string(inputData), "\n")
 
 	err = solutions.Run(config.year, config.day, config.part, input)
 	if err != nil {
