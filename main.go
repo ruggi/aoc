@@ -67,7 +67,7 @@ func run(ctx context.Context, c *cli.Command) error {
 
 	err = solutions.Run(config.year, config.day, config.part, input)
 	if err != nil {
-		return fmt.Errorf("run: %w", err)
+		return fmt.Errorf("run solution: %w", err)
 	}
 
 	return nil

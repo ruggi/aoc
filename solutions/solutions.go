@@ -2,6 +2,7 @@ package solutions
 
 import (
 	"fmt"
+	"time"
 )
 
 type SolutionFunc func(input string) (string, error)
@@ -26,6 +27,7 @@ func Run(year int, day int, part int, input string) error {
 	for _, s := range solutions {
 		if s.Year == year && s.Day == day {
 			for i, p := range s.Parts {
+				startTime := time.Now()
 				if part != -1 && part != i+1 {
 					continue
 				}
@@ -36,6 +38,8 @@ func Run(year int, day int, part int, input string) error {
 					return fmt.Errorf("part %d: %w", i+1, err)
 				}
 				fmt.Println("=>", output)
+				elapsed := time.Since(startTime)
+				fmt.Printf("(duration: %dms)\n", elapsed.Milliseconds())
 			}
 			return nil
 		}
