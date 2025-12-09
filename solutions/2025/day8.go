@@ -51,6 +51,14 @@ type position struct {
 	z int
 }
 
+func (p position) String() string {
+	s := fmt.Sprintf("%d,%d", p.x, p.y)
+	if p.z != 0 {
+		s += fmt.Sprintf(",%d", p.z)
+	}
+	return s
+}
+
 func euclideanDistance3d(a position, b position) float64 {
 	return math.Sqrt(float64(a.x-b.x)*float64(a.x-b.x) + float64(a.y-b.y)*float64(a.y-b.y) + float64(a.z-b.z)*float64(a.z-b.z))
 }
