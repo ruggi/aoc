@@ -61,6 +61,28 @@ func dfs(deviceMap map[string]device, cur string, visited map[string]bool) int {
 	return paths
 }
 
+func day11Part2(input string) (string, error) {
+	lines := strings.Split(input, "\n")
+
+	deviceMap := map[string]device{}
+	start := ""
+	for _, line := range lines {
+		parts := strings.Split(line, ": ")
+		deviceName := parts[0]
+		connections := strings.Split(parts[1], " ")
+		if deviceName == "svr" {
+			start = deviceName
+		}
+		deviceMap[deviceName] = device{
+			name:        deviceName,
+			connections: connections,
+		}
+	}
+
+	paths := dfs2(deviceMap, start, map[string]bool{}, false, false, make(map[string]int))
+	return fmt.Sprintf("%d", paths), nil
+}
+
 func memoKey(cur string, seenDac bool, seenFft bool) string {
 	return fmt.Sprintf("%s,%t,%t", cur, seenDac, seenFft)
 }
@@ -95,27 +117,4 @@ func dfs2(deviceMap map[string]device, cur string, visited map[string]bool, seen
 
 	memo[key] = paths
 	return paths
-}
-
-func day11Part2(input string) (string, error) {
-	lines := strings.Split(input, "\n")
-
-	deviceMap := map[string]device{}
-	start := ""
-	for _, line := range lines {
-		parts := strings.Split(line, ": ")
-		deviceName := parts[0]
-		connections := strings.Split(parts[1], " ")
-		if deviceName == "svr" {
-			start = deviceName
-		}
-		deviceMap[deviceName] = device{
-			name:        deviceName,
-			connections: connections,
-		}
-	}
-
-	paths := dfs2(deviceMap, start, map[string]bool{}, false, false, make(map[string]int))
-	return fmt.Sprintf("%d", paths), nil
-
 }
